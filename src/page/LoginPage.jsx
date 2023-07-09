@@ -23,6 +23,7 @@ const LoginPage = (props) => {
         .then(() => {
             console.log(Id) // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (ID check)
             console.log(Password) // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (Password check)
+            console.log("로그인 성공!")
         })
         .catch((e) => { // axios error check하는 코드
             console.log(e)

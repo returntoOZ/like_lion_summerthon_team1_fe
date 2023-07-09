@@ -8,7 +8,7 @@ library.add(faHome, faSearch, faUser);
 const SearchContainer = styled.div`
   display : flex;
   align-items : center;
-  width: 400px;
+  width: 320px;
   height: 45px;
   position: relative;
   border: 0;
@@ -30,8 +30,8 @@ const Search = styled.input`
 
 const AutoSearchContainer = styled.div`
   z-index: 3;
-  height: 50vh;
-  width: 400px;
+  height: 200px;
+  width: 295px;
   background-color: #fff;
   position: absolute;
   top: 45px;
@@ -69,12 +69,12 @@ const SearchBar = ({ onSearch }) => {
     setSuggestions(suggestions);
   };
 
-  const handleSelectSuggestion = (suggestion) => { // 중간 검색 키워드를 저장하는 함수
+  const handleSelectSuggestion = (suggestion) => { // 중간 검색 과정에서의 키워드를 저장하는 함수
     setQuery(suggestion);
     setSuggestions([]);
   };
 
-  const handleFormSubmit = (e) => { 
+  const handleFormSubmit = (e) => { // 최종 검색 키워드를 저장하는 함수
     e.preventDefault(); // 폼의 기본동작인 새로고침 방지
     const results = searchData(query); // 검색 결과 리턴
     setSearchResults(results); // 검색 결과 업데이트
@@ -102,8 +102,8 @@ const SearchBar = ({ onSearch }) => {
     // 검색어 자동 완성 결과를 가져오는 로직을 구현합니다.
     // 예시: 데이터는 배열 형태로 가정하고, 배열 요소 중에 입력된 검색어를 포함하는 항목들을 추출하여 반환합니다.
 
-    const filteredSuggestions = data.filter((item) =>
-      item.name.includes(value)
+    const filteredSuggestions = data.filter((item) => // filter로 true인 요소들만 results에 저장
+      item.name.includes(value) // item.name이 query의 내용을 포함하고 있는지 true/false로 리턴
     );
     return filteredSuggestions;
   };
