@@ -1,10 +1,10 @@
 import React from 'react';
 // import { useNavigate, useParams } from 'react-router-dom';
-import MainFooter from './components/MainPage/MainFooter';
 import ChatSort1 from './components/MainPage/ChatSort1';
 import ChatSort2 from './components/MainPage/ChatSort2';
 import MainHeader from './components/MainPage/MainHeader';
 import testImage from './components/MainPage/testImage.jpg';
+import BottomBar from './component/bottomBar';
 
 const TestArray = [
     {
@@ -62,8 +62,11 @@ const MainPage = () => {
         <>
             <MainHeader></MainHeader>
             <ChatSort1 TestData={TestArray}></ChatSort1>
-            <ChatSort2></ChatSort2>
-            <MainFooter></MainFooter>
+            <ChatSort2 TestData={TestArray}></ChatSort2>
+            <br/>
+            <br/>
+            <br/>
+            <BottomBar></BottomBar>
         </>
     );
 };
