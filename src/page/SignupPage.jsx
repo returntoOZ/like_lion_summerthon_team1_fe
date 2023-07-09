@@ -1,8 +1,9 @@
 import React from "react";
+import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const LoginPage = (props) => {
+const SignupPage = (props) => {
     const [Id, setID] =useState("") // ID 저장용 useState
     const [Password, setPassword] = useState("") //Password 저장용 useState
 
@@ -16,9 +17,9 @@ const LoginPage = (props) => {
 
     function BtnClick(){
         axios
-        .post('http://54.180.85.255/login/',{ // 입력된 userID 와 password 정보를 post로 넘겨주는 코드
-            userID : Id, 
-            password : Password 
+        .post('http://54.180.85.255/signup/',{ // 입력된 userID 와 password 정보를 post로 넘겨주는 코드
+            userID : Id,
+            password : Password
         })
         .then(() => {
             console.log(Id) // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (ID check)
@@ -37,10 +38,10 @@ const LoginPage = (props) => {
         {/* Password 입력칸 */}
         <input onChange={insertPassword} placehold="Password" value={Password}></input>
         
-        {/* 로그인 버튼 */}
-        <button onClick={BtnClick}>로그인</button>
+        {/* 회원가입 버튼 */}
+        <button onClick={BtnClick}>회원가입</button>
     </>
   );
 };
 
-export default LoginPage;
+export default SignupPage;
