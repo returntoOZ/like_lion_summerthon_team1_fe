@@ -4,7 +4,7 @@ import ChatSort1 from './components/MainPage/ChatSort1';
 import ChatSort2 from './components/MainPage/ChatSort2';
 import MainHeader from './components/MainPage/MainHeader';
 import testImage from './components/MainPage/testImage.jpg';
-import BottomBar from './component/bottomBar';
+import bottomBar from './component/SearchPageCom/bottomBar.jsx';
 
 const TestArray = [
     {
@@ -66,7 +66,7 @@ const MainPage = () => {
             <br/>
             <br/>
             <br/>
-            <BottomBar></BottomBar>
+            <bottomBar></bottomBar>
         </>
     );
 };

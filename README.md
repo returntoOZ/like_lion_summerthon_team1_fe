@@ -1,6 +1,9 @@
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## 메인 페이지 테스트(임시 데이터로 테스트/axios 연결 아직x)
 
 ## Available Scripts
 

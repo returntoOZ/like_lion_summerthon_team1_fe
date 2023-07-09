@@ -20,7 +20,6 @@ const EachChatLink = styled.img`
     width: 8rem;
     height: 5.5rem;
     border-radius: 1.25rem;
-
 `;
 
 const EachChatRank = styled.p`
