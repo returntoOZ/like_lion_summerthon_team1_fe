@@ -3,6 +3,12 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.withCredentials = true;
+//true -> 쿠키 유지
 
 const ServiceName = styled.p`
     font-size: 3rem;
@@ -83,6 +89,8 @@ const LoginPage = (props) => {
   const [Id, setID] = useState(""); // ID 저장용 useState
   const [Password, setPassword] = useState(""); //Password 저장용 useState
 
+  const navigate = useNavigate();
+
   function insertId(e) {
     // 입력된 ID 받아오는 함수
     setID(e.target.value);
@@ -95,20 +103,43 @@ const LoginPage = (props) => {
 
   function BtnClick() {
     axios
-      .post("http://54.180.85.255/signup/", {
+      .post("http://54.180.85.255/login/", {
         // 입력된 userID 와 password 정보를 post로 넘겨주는 코드
         userID: Id,
         password: Password,
       })
-      .then(() => {
+      .then((res) => {
         console.log(Id); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (ID check)
         console.log(Password); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (Password check)
+        console.log(res.data.id);
+        // navigate(`/main/${res.data.id}`);
       })
       .catch((e) => {
         // axios error check하는 코드
         console.log(e);
+        if(Id === ""){
+          alert("아이디를 입력하세요!");
+        }
+        else if(Password === ""){
+          alert("비밀번호를 입력하세요!");
+        }
+        else{
+          alert("회원정보가 올바르지 않습니다!");
+        }
       });
   }
+
+  function CheckInfo(){
+    axios
+        .get(`http://54.180.85.255/my_info/`)
+        .then((res)=>{
+            console.log('사용자 정보');
+            console.log(res);
+        })
+        .catch((e)=>{
+            console.log(e);
+        });
+  };
 
   return (
     <>
@@ -147,6 +178,7 @@ const LoginPage = (props) => {
       <SocialLogin>
         {" "}
       </SocialLogin>
+      <button onClick={CheckInfo}>사용자 정보</button>
     </>
   );
 };

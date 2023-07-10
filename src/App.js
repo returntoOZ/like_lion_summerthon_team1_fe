@@ -6,20 +6,21 @@ import MainPage from "./page/MainPage";
 import MyPage from "./page/MyPage";
 import ChatPage from "./page/ChatPage";
 import CreateChat from "./page/CreateChat";
-
+import CreateRoom from "./page/CreateRoom";
 
 function App() {
   return (
     <>
       <BrowserRouter> 
       <Routes>
-      <Route path="/main" element={<MainPage />} /> 
+      <Route path="/main/:Id1" element={<MainPage />} /> 
       <Route path="/signup" element={<SignupPage />} /> 
       <Route path="/login" element={<LoginPage />} /> 
-      <Route path="/search" element={<SearchPage />} />
+      <Route path="/search/:Id2" element={<SearchPage />} />
       <Route path="/chat" element={<ChatPage />} />
-      <Route path="/create" element={<CreateChat />} />
-      <Route path="/mypage" element={<MyPage />} />
+      <Route path="/create/:Id4" element={<CreateRoom />} />
+      <Route path="/mypage/:Id3" element={<MyPage />} />
+      {/* <Route path="/createChat" element={<CreateChat/>}/> */}
       </Routes>
       </BrowserRouter>
     </>

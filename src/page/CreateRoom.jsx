@@ -2,9 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
+import BottomBar from './component/SearchPageCom/bottomBar';
+import { useParams } from 'react-router-dom';
 
 //채팅방 생성
-//테스트용 임시 페이지***
+//예원님이 보내주신 CreateChat.jsx와 (직접)merge
+//RoomEnter Error,,
 
 const Title = styled.h2`
     
@@ -14,43 +17,87 @@ const RoomTitle = styled.input`
     
 `;
 
-const RoomHTag = styled.input`
+const CreateButton = styled.button`
     
 `;
 
-const CreateButton = styled.button`
+const InsertHashtag = styled.textarea`
     
 `;
 
 const CreateRoom = () => {
 
+    const {Id4} = useParams();
+
     const [newChatTitle, setTitle]=useState("");
-    
+    const [RoomId, setRoomId] = useState();
+
     function insertTitle(e){
         setTitle(e.target.value);
         console.log(newChatTitle);
     }
 
+    function RoomEnter(){
+        axios
+            .post(`http://54.180.85.255/room/${RoomId}/enter/`)
+            .then(()=>{
+                console.log('Room enter!');
+            })
+            .catch((e)=>{
+                console.log('Cannot Enter!');
+                console.log(RoomId);
+                console.log(e);
+            });
+    };
+
     function buttonClick(){
         axios
             .post(`http://54.180.85.255/room_list_create/`,{
                 name: newChatTitle,
-                user: "ojh1"
+                user: [Id4]
             })
-            .then(()=>{
-                console.log('개설 성공');
+            .then((res)=>{
+                console.log(res);
+                setRoomId(res.data.room_id);
+                RoomEnter();
             })
             .catch((e)=>{
                 console.log(e);
             });
-    }
+    };
+
+    function buttonDelete(){
+        axios
+            .delete(`http://54.180.85.255/room/12/`)
+            .then(()=>{
+                console.log('삭제완료!');
+            })
+            .catch((e)=>{
+                console.log(e);
+            });
+    };
+
+    function CheckInfo(){
+        axios
+            .get(`http://54.180.85.255/my_info/`)
+            .then((res)=>{
+                console.log('사용자 정보');
+                console.log(res);
+            })
+            .catch((e)=>{
+                console.log(e);
+            });
+    };
 
     return (
         <div>
             <Title>채팅방 개설</Title>
-            <RoomTitle placeholder='채팅방 이름 작성..' onChange={handleTitle} value={newChatTitle}></RoomTitle>
-            {/* <RoomHTag></RoomHTag> */}
+            <RoomTitle placeholder='채팅방 이름 작성..' onChange={insertTitle} value={newChatTitle}></RoomTitle>
+            <InsertHashtag placeholder='해시태그 추가하기'></InsertHashtag>
             <CreateButton onClick={buttonClick}>개설하기</CreateButton>
+            <button onClick={buttonDelete}>임시 삭제버튼</button>
+            <button onClick={CheckInfo}>사용자 확인버튼</button>
+            <BottomBar IdOfUser={Id4}></BottomBar>
         </div>
     );
 };

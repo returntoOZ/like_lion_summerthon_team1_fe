@@ -36,7 +36,7 @@ const ChatList1 = (props) => {
                     <option value="MostPopular">인기순</option>
                 </HandleChange>
             </div> */}
-            <CardList SortOption="MostPopular" DataOption={props.TestData}></CardList>
+            <CardList IdOfUser={props.IdOfUser} SortOption="MostPopular" DataOption={props.TestData}></CardList>
             
         </ChatList1Container>
     );
