@@ -1,7 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
-
+import axios from 'axios';
 //css추가 필요
 
 const EveryChatBox = styled.div`
@@ -41,39 +41,51 @@ const EachChatRank = styled.p`
 `;
 
 const CardList = (props) => {//cardList -> 각 채팅방 카드 sorting/ map으로 띄우기
-    const sortedItems = props.DataOption===undefined?console.log(props):props.DataOption;
-    //props undefined 예외처리, 정렬할 배열 sortedItems 선언 및 초기화
+
+    const [RoomList, setRoomList]=useState([]);
+    //RoomList에 axios get으로 생성된 채팅방 객체 배열 저장할 것
 
     let rankCount = 0;
+    //순위 표시 위한 변수 선언
+
+    //처음 화면 렌더링 될 때 
     useEffect(()=>{
-        if(props.DataOption===undefined){//undefined 예외처리
-            console.log('DataOption===undefined!');
+        axios
+            .get(`http://54.180.85.255/room_list_create/`)
+            .then((res)=>{
+                console.log('room list get 성공!');
+                setRoomList(res.data);
+            })
+            .catch((e)=>{
+                console.log(e);
+            })
+    },[]);
+
+    useEffect(()=>{
+        if(RoomList===undefined){//undefined 예외처리
+            console.log('Data===undefined!');
         }
         else{
-           sortedItems.sort((a, b)=>{
-            if(props.SortOption==="MostSearched"){
-                return a.searched - b.searched
-            }
-            else if(props.SortOption==="MostJoin"){
-                return a.join-b.join;
-            }
-            else if(props.SortOption==="MostPopular"){
-                return a.view-b.view;
-            }
+            RoomList.sort((a, b)=>{
+                if(props.SortOption==="MostPopular"){
+                    return a.entry_count-b.entry_count;
+                }
+                else if(props.SortOption==="MostJoin"){
+                    return a.user_count-b.user_count;
+                }
             return 0;
         });
-        console.log(sortedItems);
     }
     },[props.SortOption])//Sort 기준이 바뀔 때마다 실행
 
     return (
         <EveryChatBox>
-            {props.DataOption===undefined?<p></p>:
-                sortedItems.map((eachData)=>(//map으로 정렬된 데이터 정렬
+            {RoomList===undefined?<p></p>:
+                RoomList.map((eachData)=>(//map으로 정렬된 데이터 정렬
                 //div에 onClink={()=>navigate(route 링크)}로 각 채팅방에 들어갈 수 있도록 수정 필요
                     <EachChatBox>
                         <EachChatRank>{++rankCount}</EachChatRank>
-                        <EachChatLink src={eachData.chatImage}></EachChatLink>
+                        <EachChatLink alt={eachData.name}></EachChatLink>
                     </EachChatBox>
                 ))
             }

@@ -26,10 +26,12 @@ const CreateButton = styled.button`
     top: 1rem;
 `;
 
+const MainHeader = (props) => {
 
+    const navigate = useNavigate();
 
-const MainHeader = () => {
-
+    console.log('mainheader props!');
+    console.log(props);
     useEffect(()=>{
         axios
             .get(`http://54.180.85.255/room_list_create/`)
@@ -41,17 +43,15 @@ const MainHeader = () => {
             });
     },[]);
     // const navigate = useNavigate();
-
     
     //버튼에 onClink={()=>navigate()} 추가
     return (
         <>
             <HeaderContainer>
                 <ChatName>ㅇㅇ챗</ChatName>
-                <CreateButton>개설하기</CreateButton>
+                <CreateButton onClick={()=>navigate(`/create/${props.IdOfUser}`)}>개설하기</CreateButton>
             </HeaderContainer>
         </>
-            
     );
 };
 

@@ -7,19 +7,20 @@ import { faHome, faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 
 library.add(faHome, faSearch, faUser);
 
-const BottomBar = () => {
+const BottomBar = (props) => {
   const navigate = useNavigate();
 
+  // console.log(props);
   function moveToMain(){ // mainPage로 이동하는 함수
-    navigate(`/main`)
+    navigate(`/main/${props.IdOfUser}`)
   }
 
   function moveToSearch(){ // searchPage로 이동하는 함수
-    navigate(`/search`)
+    navigate(`/search/${props.IdOfUser}`)
   }
 
   function moveToMypage(){ // myPage로 이동하는 함수
-    navigate(`/mypage`)
+    navigate(`/mypage/${props.IdOfUser}`)
   }
 
   return (

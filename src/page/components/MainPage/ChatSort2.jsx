@@ -18,10 +18,9 @@ const ChatListName = styled.h3`
 
 
 const ChatList2 = (props) => {
-    //최근 참여한 채팅방 => 최다 참여 채팅방으로 수정
     return (
         <ChatList2Container>
-            <ChatListName>최다 참여 채팅방</ChatListName>
+            <ChatListName>현재 이용자가 가장 많은 채팅방</ChatListName>
             <div>
                 <CardList SortOption="MostJoin" DataOption={props.TestData}></CardList>
             </div>

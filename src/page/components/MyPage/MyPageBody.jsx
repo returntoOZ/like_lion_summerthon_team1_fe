@@ -16,7 +16,7 @@ const ChatTitle = styled.p`
 
 
 
-const MyPageBody = () => {
+const MyPageBody = (props) => {
     return (
         <div>
             <ChatKategorie></ChatKategorie>
