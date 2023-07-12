@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import SignupPage from "./SignupPage";
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -24,7 +25,7 @@ const ServiceName = styled.p`
     align-items : center;
   `
 
-  const LoginText = styled.p`
+  const LoginText = styled.div`
     font-size: 1.5rem;
     margin: 1rem;
     font-weight: bold;
@@ -46,7 +47,7 @@ const ServiceName = styled.p`
     padding-top: 1rem;
   `;
 
-  const SignupLink = styled.a`
+  const SignupLink = styled.div`
     font-size: 1rem;
     display: flex;
     justify-content: flex-end;
@@ -102,8 +103,18 @@ const LoginPage = (props) => {
   }
 
   function BtnClick() {
+    if (Id === "") {
+      alert("아이디를 입력하세요.");
+      return;
+    }
+
+    if (Password === "") {
+      alert("비밀번호를 입력하세요.");
+      return;
+    }
+
     axios
-      .post("http://54.180.85.255/login/", {
+      .post("https://soozzang.p-e.kr/login/", {
         // 입력된 userID 와 password 정보를 post로 넘겨주는 코드
         userID: Id,
         password: Password,
@@ -112,34 +123,14 @@ const LoginPage = (props) => {
         console.log(Id); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (ID check)
         console.log(Password); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (Password check)
         console.log(res.data.id);
-        // navigate(`/main/${res.data.id}`);
+        navigate(`/main/${res.data.id}`);
       })
       .catch((e) => {
         // axios error check하는 코드
         console.log(e);
-        if(Id === ""){
-          alert("아이디를 입력하세요!");
-        }
-        else if(Password === ""){
-          alert("비밀번호를 입력하세요!");
-        }
-        else{
-          alert("회원정보가 올바르지 않습니다!");
-        }
+
       });
   }
-
-  function CheckInfo(){
-    axios
-        .get(`http://54.180.85.255/my_info/`)
-        .then((res)=>{
-            console.log('사용자 정보');
-            console.log(res);
-        })
-        .catch((e)=>{
-            console.log(e);
-        });
-  };
 
   return (
     <>
@@ -165,7 +156,7 @@ const LoginPage = (props) => {
 
       <LinkDiv>
         <SearchLink>아이디/비밀번호 찾기</SearchLink>
-        <SignupLink>회원가입</SignupLink>
+        <SignupLink><Link to={`/signup`}>회원가입</Link></SignupLink>
       </LinkDiv>
 
       <LoginButtonDiv>
@@ -178,7 +169,6 @@ const LoginPage = (props) => {
       <SocialLogin>
         {" "}
       </SocialLogin>
-      <button onClick={CheckInfo}>사용자 정보</button>
     </>
   );
 };

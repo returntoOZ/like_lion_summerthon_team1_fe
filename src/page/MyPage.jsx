@@ -11,12 +11,6 @@ const TestUserRoomInfo = {//axios 연결 했다고 치고 임의의 데이터
     rooms : ["환승연애2 채팅방", "솔로지옥", "더글로리", "악귀"]
 };
 
-const TestUserInfo = {
-    id: 1,
-    userID: "ojh1",
-    password: "passwd"
-};
-
 const MyPage = () => {
 
     const {Id3} = useParams();
@@ -24,7 +18,7 @@ const MyPage = () => {
 
     useEffect(()=>{
         axios
-            .get(`http://54.180.85.255/user_info/${Id3}/`)
+            .get(`https://soozzang.p-e.kr/user_info/${Id3}/`)
             .then((res)=>{
                 console.log(res);
                 setUserInfo(res.data);

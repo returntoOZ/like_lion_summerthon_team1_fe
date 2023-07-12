@@ -51,7 +51,7 @@ const CardList = (props) => {//cardList -> 각 채팅방 카드 sorting/ map으�
     //처음 화면 렌더링 될 때 
     useEffect(()=>{
         axios
-            .get(`http://54.180.85.255/room_list_create/`)
+            .get(`https://soozzang.p-e.kr/room_list_create/`)
             .then((res)=>{
                 console.log('room list get 성공!');
                 setRoomList(res.data);
