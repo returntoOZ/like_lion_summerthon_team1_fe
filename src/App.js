@@ -7,6 +7,8 @@ import MyPage from "./page/MyPage";
 import ChatPage from "./page/ChatPage";
 import CreateChat from "./page/CreateChat";
 import CreateRoom from "./page/CreateRoom";
+import axios from "axios";
+
 
 function App() {
   return (
