@@ -11,6 +11,12 @@ const SignupTextBox = styled.div`
   padding: 3rem 1rem 0rem 1rem;
 `;
 
+const SignupContainer = styled.div`
+    display : flex;
+    flex-direction : column;
+    align-items : center;
+  `
+
 const SignupText = styled.p`
   font-weight: bold;
   font-size: 1.3rem;
@@ -134,16 +140,28 @@ const SignupPage = (props) => {
   function insertId(e) {
     // 입력된 ID 받아오는 함수
     setID(e.target.value);
+    console.log(e.target.value);
   }
 
   function insertPassword(e) {
     // 입력된 Password 받아오는 함수
     setPassword(e.target.value);
+    console.log(e.target.value);
   }
 
   function BtnClick() {
+    if (Id === "") {
+      alert("아이디를 입력하세요.");
+      return;
+    }
+
+    if (Password === "") {
+      alert("비밀번호를 입력하세요.");
+      return;
+    }
+
     axios
-      .post("http://54.180.85.255/signup/", {
+      .post("https://soozzang.p-e.kr/signup/", {
         // 입력된 userID 와 password 정보를 post로 넘겨주는 코드
         userID: Id,
         password: Password,
@@ -167,11 +185,23 @@ const SignupPage = (props) => {
         </SignupText2>
       </SignupTextBox>
 
-      <InputBox>
-        <NicknameBox>
-          <NicknameText>닉네임 입력</NicknameText>
-          <NicknameInput placeholder="   NickName"></NicknameInput>
-        </NicknameBox>
+      <SignupContainer>
+      <input
+        onChange={insertId}
+        placeholder="ID"
+        value={Id}
+      ></input>
+
+      {/* Password 입력칸 */}
+      <input type="password"
+        onChange={insertPassword}
+        placeholder="Password"
+        value={Password}
+      ></input>
+      <br></br>
+      </SignupContainer>
+
+      <button onClick={BtnClick}>회원가입하기</button>
         <IdBox>
           <IdText>아이디 입력</IdText>
           <IdInput placeholder="   ID"></IdInput>

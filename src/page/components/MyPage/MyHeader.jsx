@@ -41,9 +41,10 @@ const MyHeader = (props) => {
 
     function buttonLogout(){
         axios
-            .get(`http://54.180.85.255/logout/`)
+            .get(`https://soozzang.p-e.kr/logout/`)
             .then((res)=>{
                 console.log(res);
+                navigate(`/login`)
             })
             .catch((e)=>{
                 console.log(e);

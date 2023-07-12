@@ -9,6 +9,10 @@ import { useParams } from 'react-router-dom';
 //예원님이 보내주신 CreateChat.jsx와 (직접)merge
 //RoomEnter Error,,
 
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.withCredentials = true;
+
 const Title = styled.h2`
     
 `;
@@ -39,7 +43,7 @@ const CreateRoom = () => {
 
     function RoomEnter(){
         axios
-            .post(`http://54.180.85.255/room/${RoomId}/enter/`)
+            .post(`https://soozzang.p-e.kr/room/${RoomId}/enter/`)
             .then(()=>{
                 console.log('Room enter!');
             })
@@ -52,9 +56,10 @@ const CreateRoom = () => {
 
     function buttonClick(){
         axios
-            .post(`http://54.180.85.255/room_list_create/`,{
-                name: newChatTitle,
-                user: [Id4]
+            .post(`https://soozzang.p-e.kr/room_list_create/`,{
+                name : newChatTitle,
+                user : Id4,
+                category : 2
             })
             .then((res)=>{
                 console.log(res);
@@ -68,7 +73,7 @@ const CreateRoom = () => {
 
     function buttonDelete(){
         axios
-            .delete(`http://54.180.85.255/room/12/`)
+            .delete(`https://soozzang.p-e.kr/room/12/`)
             .then(()=>{
                 console.log('삭제완료!');
             })
@@ -79,7 +84,7 @@ const CreateRoom = () => {
 
     function CheckInfo(){
         axios
-            .get(`http://54.180.85.255/my_info/`)
+            .get(`https://soozzang.p-e.kr/my_info/`)
             .then((res)=>{
                 console.log('사용자 정보');
                 console.log(res);
