@@ -1,17 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import SignupPage from "./SignupPage";
+import { Link, useNavigate } from "react-router-dom";
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.withCredentials = true;
-//true -> 쿠키 유지
 
 const ServiceName = styled.p`
+
     font-size: 3rem;
     margin: 2rem;
     font-weight: bold;
@@ -92,15 +89,16 @@ const LoginPage = (props) => {
 
   const navigate = useNavigate();
 
-  function insertId(e) {
+  const insertId = (e) => {
     // 입력된 ID 받아오는 함수
+
     setId(e.target.value);
   }
 
-  function insertPassword(e) {
+  const insertPassword = (e) => {
     // 입력된 Password 받아오는 함수
     setPassword(e.target.value);
-  }
+  };
 
   function BtnClick() {
     if (id === "") {
@@ -129,13 +127,14 @@ const LoginPage = (props) => {
         // axios error check하는 코드
         console.log(e);
       });
-  }
+  };
 
   return (
     <>
       <ServiceName>서비스 이름</ServiceName>
 
       <LoginContainer>
+
       <LoginText Link="">로그인</LoginText>
       {/* ID 입력칸 */}
       <input
@@ -151,23 +150,24 @@ const LoginPage = (props) => {
         value={password}
       ></input>
       <br></br>
+
       </LoginContainer>
 
       <LinkDiv>
         <SearchLink>아이디/비밀번호 찾기</SearchLink>
-        <SignupLink><Link to={`/signup`}>회원가입</Link></SignupLink>
+        <SignupLink>
+          <Link to={`/signup`}>회원가입</Link>
+        </SignupLink>
       </LinkDiv>
 
       <LoginButtonDiv>
-        <LoginButton>
-          <LoginButtonText onClick={BtnClick}>로그인</LoginButtonText>
+        <LoginButton onClick={BtnClick}>
+          <LoginButtonText>로그인</LoginButtonText>
         </LoginButton>
       </LoginButtonDiv>
 
       <SocialLoginText>기존 계정으로 로그인</SocialLoginText>
-      <SocialLogin>
-        {" "}
-      </SocialLogin>
+      <SocialLogin>{/* 소셜 로그인 버튼 등 */}</SocialLogin>
     </>
   );
 };

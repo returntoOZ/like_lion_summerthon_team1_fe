@@ -6,6 +6,8 @@ import MainHeader from './components/MainPage/MainHeader';
 import testImage from './components/MainPage/testImage.jpg';
 import BottomBar from './component/SearchPageCom/bottomBar';
 
+
+
 // const TestArray = [
 //     {
 //         id: 1,

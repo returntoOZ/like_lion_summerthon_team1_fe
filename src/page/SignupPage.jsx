@@ -10,6 +10,10 @@ const FullBox = styled.div`
   height: 20rem;
 `;
 
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.withCredentials = true;
+
 const SignupTextBox = styled.div`
   display: flex;
   flex-direction: column;
