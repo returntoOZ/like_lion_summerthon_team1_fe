@@ -35,6 +35,8 @@ const MyPage = () => {
             })
     },[]);
 
+    console.log(UserInfo);
+
     return (
         <div>
             <MyHeader UserInfo={UserInfo} UserImage={UserTestImage}></MyHeader>
