@@ -58,13 +58,13 @@ const CreateRoom = () => {
         axios
             .post(`https://soozzang.p-e.kr/room_list_create/`,{
                 name : newChatTitle,
-                user : Id4,
+                user : [Id4],
                 category : 2
             })
             .then((res)=>{
                 console.log(res);
                 setRoomId(res.data.room_id);
-                RoomEnter();
+                // RoomEnter();
             })
             .catch((e)=>{
                 console.log(e);
@@ -102,6 +102,7 @@ const CreateRoom = () => {
             <CreateButton onClick={buttonClick}>개설하기</CreateButton>
             <button onClick={buttonDelete}>임시 삭제버튼</button>
             <button onClick={CheckInfo}>사용자 확인버튼</button>
+            <button onClick={RoomEnter}>채팅방 입장하기</button>
             <BottomBar IdOfUser={Id4}></BottomBar>
         </div>
     );

@@ -2,6 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 //css추가 필요
 
 const EveryChatBox = styled.div`
@@ -42,6 +43,7 @@ const EachChatRank = styled.p`
 
 const CardList = (props) => {//cardList -> 각 채팅방 카드 sorting/ map으로 띄우기
 
+    const navigate = useNavigate();
     const [RoomList, setRoomList]=useState([]);
     //RoomList에 axios get으로 생성된 채팅방 객체 배열 저장할 것
 
@@ -55,13 +57,14 @@ const CardList = (props) => {//cardList -> 각 채팅방 카드 sorting/ map으�
             .then((res)=>{
                 console.log('room list get 성공!');
                 setRoomList(res.data);
+                RoomListSort();
             })
             .catch((e)=>{
                 console.log(e);
             })
     },[]);
 
-    useEffect(()=>{
+    function RoomListSort(){
         if(RoomList===undefined){//undefined 예외처리
             console.log('Data===undefined!');
         }
@@ -74,16 +77,49 @@ const CardList = (props) => {//cardList -> 각 채팅방 카드 sorting/ map으�
                     return a.user_count-b.user_count;
                 }
             return 0;
-        });
-    }
-    },[props.SortOption])//Sort 기준이 바뀔 때마다 실행
+            });
+        }
+    };
+
+    // useEffect(()=>{
+    //     if(RoomList===undefined){//undefined 예외처리
+    //         console.log('Data===undefined!');
+    //     }
+    //     else{
+    //         RoomList.sort((a, b)=>{
+    //             if(props.SortOption==="MostPopular"){
+    //                 return a.entry_count-b.entry_count;
+    //             }
+    //             else if(props.SortOption==="MostJoin"){
+    //                 return a.user_count-b.user_count;
+    //             }
+    //         return 0;
+    //     });
+    // }
+    // },[props.SortOption])//Sort 기준이 바뀔 때마다 실행
+
+    console.log(RoomList);
+
+    function eachChatClick(roomId){
+        axios
+            .post(`https://soozzang.p-e.kr/room/${roomId}/enter/`)
+            .then(()=>{
+                console.log('Room enter!');
+                // navigate(`/chat`); 각 채팅방으로 이동
+            })
+            .catch((e)=>{
+                console.log('Cannot Enter!');
+                console.log(roomId);
+                console.log(e);
+            });
+    };
 
     return (
         <EveryChatBox>
             {RoomList===undefined?<p></p>:
                 RoomList.map((eachData)=>(//map으로 정렬된 데이터 정렬
                 //div에 onClink={()=>navigate(route 링크)}로 각 채팅방에 들어갈 수 있도록 수정 필요
-                    <EachChatBox>
+                    <EachChatBox onClick={()=>eachChatClick(eachData.id)}>
                         <EachChatRank>{++rankCount}</EachChatRank>
                         <EachChatLink alt={eachData.name}></EachChatLink>
                     </EachChatBox>

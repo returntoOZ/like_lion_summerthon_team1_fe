@@ -87,14 +87,14 @@ const ServiceName = styled.p`
   `;
 
 const LoginPage = (props) => {
-  const [Id, setID] = useState(""); // ID 저장용 useState
-  const [Password, setPassword] = useState(""); //Password 저장용 useState
+  const [id, setId] = useState(""); // ID 저장용 useState
+  const [password, setPassword] = useState(""); //Password 저장용 useState
 
   const navigate = useNavigate();
 
   function insertId(e) {
     // 입력된 ID 받아오는 함수
-    setID(e.target.value);
+    setId(e.target.value);
   }
 
   function insertPassword(e) {
@@ -103,32 +103,31 @@ const LoginPage = (props) => {
   }
 
   function BtnClick() {
-    if (Id === "") {
+    if (id === "") {
       alert("아이디를 입력하세요.");
       return;
     }
 
-    if (Password === "") {
+    if (password === "") {
       alert("비밀번호를 입력하세요.");
       return;
     }
 
     axios
-      .post("https://soozzang.p-e.kr/login/", {
+      .post("https://soozzang.p-e.kr/login", {
         // 입력된 userID 와 password 정보를 post로 넘겨주는 코드
-        userID: Id,
-        password: Password,
+        userID: id,
+        password: password,
       })
       .then((res) => {
-        console.log(Id); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (ID check)
-        console.log(Password); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (Password check)
+        console.log(id); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (ID check)
+        console.log(password); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (Password check)
         console.log(res.data.id);
         navigate(`/main/${res.data.id}`);
       })
       .catch((e) => {
         // axios error check하는 코드
         console.log(e);
-
       });
   }
 
@@ -142,14 +141,14 @@ const LoginPage = (props) => {
       <input
         onChange={insertId}
         placeholder="ID 근데 파란색으로 어케 바꾸냐"
-        value={Id}
+        value={id}
       ></input>
 
       {/* Password 입력칸 */}
       <input type="password"
         onChange={insertPassword}
         placeholder="Password 근데 파란색으로 어케 바꾸냐"
-        value={Password}
+        value={password}
       ></input>
       <br></br>
       </LoginContainer>

@@ -3,6 +3,12 @@ import styled from "styled-components";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+const FullBox = styled.div`
+  margin: 3rem 2rem 2rem 2rem;
+  height: 20rem;
+`;
 
 const SignupTextBox = styled.div`
   display: flex;
@@ -133,9 +139,47 @@ const SignupCancleText = styled.p`
   margin: 0;
 `;
 
+const ButtonBox = styled.div`
+  display: flex;
+  margin-top: 3rem;
+  width: 14rem;
+  height: 3rem;
+  /* background-color: coral; */
+  justify-content: space-evenly;
+`;
+
+const CompleteButton = styled.button`
+  width: 6rem;
+  height: 2.5rem;
+  border-style: none;
+  border-radius: 0.3rem;
+  background-color: #d2ebf9;
+  box-shadow: 0rem 0.2rem 0.3rem gray;
+`;
+
+const CompleteButtonText = styled.p`
+  margin: 0;
+  font-weight: bold;
+`;
+
+const CancelButton = styled.button`
+  width: 6rem;
+  height: 2.5rem;
+  border-style: none;
+  border-radius: 0.3rem;
+  background-color: #d2ebf9;
+  box-shadow: 0rem 0.2rem 0.3rem gray;
+`;
+
+const CancelButtonText = styled.p`
+  margin: 0;
+  font-weight: bold;
+`;
+
 const SignupPage = (props) => {
   const [Id, setID] = useState(""); // ID 저장용 useState
   const [Password, setPassword] = useState(""); //Password 저장용 useState
+  const navigate = useNavigate();
 
   function insertId(e) {
     // 입력된 ID 받아오는 함수
@@ -166,9 +210,10 @@ const SignupPage = (props) => {
         userID: Id,
         password: Password,
       })
-      .then(() => {
+      .then((res) => {
         console.log(Id); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (ID check)
         console.log(Password); // 제대로 작동하는 정보 넘겨줬는지 확인하는 코드 (Password check)
+        console.log(res);
       })
       .catch((e) => {
         // axios error check하는 코드
@@ -176,50 +221,78 @@ const SignupPage = (props) => {
       });
   }
 
+  function BtnClick2(){
+    setPassword("");
+    setID("");
+    alert("회원가입이 취소되었습니다.");
+    navigate(`/login`);
+  }
+
+  //     {/* <SignupContainer>
+  //     <input
+  //       onChange={insertId}
+  //       placeholder="ID"
+  //       value={Id}
+  //     ></input> */}
+
+  //     {/* Password 입력칸 */}
+  //     {/* <input type="password"
+  //       onChange={insertPassword}
+  //       placeholder="Password"
+  //       value={Password}
+  //     ></input>
+  //     <br></br>
+  //     </SignupContainer> */}
+
+  //     {/* <button onClick={BtnClick}>회원가입하기</button> */}
+  //       <IdBox>
+  //         <IdText>아이디 입력</IdText>
+  //         <IdInput placeholder="   ID"></IdInput>
+  //       </IdBox>
+  //       <PasswordBox>
+  //         <PasswordText>비밀번호 입력</PasswordText>
+  //         <PasswordInput placeholder="    Password"></PasswordInput>
+  //       </PasswordBox>
+
+  //     <ButtonDiv>
+  //       <SignupComplete>
+  //         <SignupCompleteText>가입 완료</SignupCompleteText>
+  //       </SignupComplete>
+  //       <SignupCancle>
+  //         <SignupCancleText>가입 취소</SignupCancleText>
+  //       </SignupCancle>
+  //     </ButtonDiv>
+  //   </>
+  // );
   return (
     <>
-      <SignupTextBox>
-        <SignupText>회원가입</SignupText>
-        <SignupText2>
-          환영합니다! 회원이 되어 다양한 서비스를 누려보세요
-        </SignupText2>
-      </SignupTextBox>
+      <FullBox>
+        <SignupTextBox>
+          <SignupText>회원가입</SignupText>
+          <SignupText2>
+            환영합니다! 회원이 되어 다양한 서비스를 누려보세요
+          </SignupText2>
+        </SignupTextBox>
 
-      <SignupContainer>
-      <input
-        onChange={insertId}
-        placeholder="ID"
-        value={Id}
-      ></input>
-
-      {/* Password 입력칸 */}
-      <input type="password"
-        onChange={insertPassword}
-        placeholder="Password"
-        value={Password}
-      ></input>
-      <br></br>
-      </SignupContainer>
-
-      <button onClick={BtnClick}>회원가입하기</button>
-        <IdBox>
-          <IdText>아이디 입력</IdText>
-          <IdInput placeholder="   ID"></IdInput>
-        </IdBox>
-        <PasswordBox>
-          <PasswordText>비밀번호 입력</PasswordText>
-          <PasswordInput placeholder="    Password"></PasswordInput>
-        </PasswordBox>
-      </InputBox>
-
-      <ButtonDiv>
-        <SignupComplete>
-          <SignupCompleteText>가입 완료</SignupCompleteText>
-        </SignupComplete>
-        <SignupCancle>
-          <SignupCancleText>가입 취소</SignupCancleText>
-        </SignupCancle>
-      </ButtonDiv>
+        <InputBox>
+          <IdBox>
+            <IdText>아이디 입력</IdText>
+            <IdInput placeholder="   ID" onChange={insertId} value={Id}></IdInput>
+          </IdBox>
+          <PasswordBox>
+            <PasswordText>비밀번호 입력</PasswordText>
+            <PasswordInput placeholder="    Password" onChange={insertPassword} value={Password}></PasswordInput>
+          </PasswordBox>
+        </InputBox>
+        <ButtonBox>
+          <CompleteButton>
+            <CompleteButtonText onClick={BtnClick}>가입 완료</CompleteButtonText>
+          </CompleteButton>
+          <CancelButton>
+            <CancelButtonText onClick={BtnClick2}>가입 취소</CancelButtonText>
+          </CancelButton>
+        </ButtonBox>
+      </FullBox>
     </>
   );
 };
