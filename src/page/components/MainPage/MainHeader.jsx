@@ -34,7 +34,7 @@ const MainHeader = (props) => {
     console.log(props);
     useEffect(()=>{
         axios
-            .get(`http://54.180.85.255/room_list_create/`)
+            .get(`https://soozzang.p-e.kr/room_list_create/`)
             .then((res)=>{
                 console.log(res);
             })
