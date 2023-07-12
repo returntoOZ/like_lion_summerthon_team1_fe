@@ -59,7 +59,7 @@ const CreateRoom = () => {
             .post(`https://soozzang.p-e.kr/room_list_create/`,{
                 name : newChatTitle,
                 user : Id4,
-                category : "2"
+                category : 2
             })
             .then((res)=>{
                 console.log(res);
