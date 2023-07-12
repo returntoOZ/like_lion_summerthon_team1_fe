@@ -170,15 +170,15 @@ const SignupPage = (props) => {
       <InputBox>
         <NicknameBox>
           <NicknameText>닉네임 입력</NicknameText>
-          <NicknameInput></NicknameInput>
+          <NicknameInput placeholder="   NickName"></NicknameInput>
         </NicknameBox>
         <IdBox>
           <IdText>아이디 입력</IdText>
-          <IdInput></IdInput>
+          <IdInput placeholder="   ID"></IdInput>
         </IdBox>
         <PasswordBox>
           <PasswordText>비밀번호 입력</PasswordText>
-          <PasswordInput></PasswordInput>
+          <PasswordInput placeholder="    Password"></PasswordInput>
         </PasswordBox>
       </InputBox>
 
