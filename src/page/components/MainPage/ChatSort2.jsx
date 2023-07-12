@@ -22,7 +22,7 @@ const ChatList2 = (props) => {
         <ChatList2Container>
             <ChatListName>현재 이용자가 가장 많은 채팅방</ChatListName>
             <div>
-                <CardList SortOption="MostJoin" DataOption={props.TestData}></CardList>
+                <CardList IdOfUser={props.IdOfUser} SortOption="MostJoin" DataOption={props.TestData}></CardList>
             </div>
         </ChatList2Container>
     );
