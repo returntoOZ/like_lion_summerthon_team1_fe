@@ -1,23 +1,19 @@
 import React from "react";
-import styled from "styled-components";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import BottomBar from "./component/bottomBar";
-import SearchBar from "./component/searchBar";
+import BottomBar from "./component/SearchPageCom/bottomBar";
+import SearchBar from "./component/SearchPageCom/searchBar";
+import { useParams } from "react-router-dom";
 
-const ProfileBox = styled.div`
-    display : flex;
-    flex-direction : row;
-    justify-content : center;
-    margin-top : 30px;
-`;
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.withCredentials = true;
 
-const SearchPage = (props) => {
-    
+const SearchPage = () => {
+  const {Id2} = useParams();
   return (
     <>
         <SearchBar/>
-        <BottomBar/>
+        <BottomBar IdOfUser={Id2}/>
     </>
   );
 };

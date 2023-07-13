@@ -1,4 +1,4 @@
-// 라이브러리
+// 하단바에 넣을 아이콘을 위한 라이브러리
 import { library } from "@fortawesome/fontawesome-svg-core";
 // 사용할 아이콘 import
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
