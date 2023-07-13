@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
@@ -11,8 +11,8 @@ axios.defaults.withCredentials = true;
 const SignupTextBox = styled.div`
   display: flex;
   flex-direction: column;
-  width: 14rem;
-  padding: 3.5rem 0rem 1rem 1rem;
+  width: 20rem;
+  padding: 3rem 1rem 0rem 1rem;
 `;
 
 const SignupContainer = styled.div`
@@ -36,10 +36,11 @@ const InputBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items : center;
+  padding: 1rem;
 `;
 
 const IdBox = styled.div`
-  width: 13rem;
+  width: 18rem;
   padding-bottom: 1rem;
 `;
 
@@ -61,7 +62,7 @@ const IdInput = styled.input`
 `;
 
 const PasswordBox = styled.div`
-  width: 13rem;
+  width: 8rem;
 `;
 
 const PasswordText = styled.p`
@@ -118,12 +119,6 @@ const CancelButtonText = styled.p`
   font-weight: bold;
 `;
 
-const SocialLoginText = styled.p`
-    display: flex;
-    justify-content: center;
-    padding : 0.5rem;
-  `;
-
 const SignupPage = (props) => {
   const [Id, setID] = useState(""); // ID 저장용 useState
   const [Password, setPassword] = useState(""); //Password 저장용 useState
@@ -153,7 +148,7 @@ const SignupPage = (props) => {
     }
 
     axios
-      .post("https://soozzang.p-e.kr/signup/", {
+      .post(`${process.env.REACT_APP_API}/signup`, {
         // 입력된 userID 와 password 정보를 post로 넘겨주는 코드
         userID: Id,
         password: Password,
@@ -191,17 +186,14 @@ const SignupPage = (props) => {
         </SignupTextBox>
 
         <InputBox>
-
           <IdBox>
             <IdText>아이디 입력</IdText>
             <IdInput placeholder="ID" onChange={insertId} value={Id}></IdInput>
           </IdBox>
-
           <PasswordBox>
             <PasswordText>비밀번호 입력</PasswordText>
             <PasswordInput placeholder="Password" type="password" onChange={insertPassword} value={Password}></PasswordInput>
           </PasswordBox>
-
         </InputBox>
 
         <ButtonBox>
@@ -213,8 +205,6 @@ const SignupPage = (props) => {
           </CancelButton>
         </ButtonBox>
         
-        <SocialLoginText><Link to={`/login`}>기존 계정으로 로그인</Link></SocialLoginText>
-
         </SignupContainer>
     </>
   );
