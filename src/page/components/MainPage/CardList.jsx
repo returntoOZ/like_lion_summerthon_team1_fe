@@ -98,7 +98,6 @@ const CardList = (props) => {//cardList -> 각 채팅방 카드 sorting/ map으�
     // }
     // },[props.SortOption])//Sort 기준이 바뀔 때마다 실행
 
-    console.log(RoomList);
 
     function eachChatClick(roomId){
         axios
